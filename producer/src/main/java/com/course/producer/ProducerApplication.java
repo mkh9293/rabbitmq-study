@@ -2,6 +2,7 @@ package com.course.producer;
 
 import com.course.producer.entity.Picture;
 import com.course.producer.producer.PictureProducer;
+import com.course.producer.producer.PictureProducerTwo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ProducerApplication implements CommandLineRunner {
 
     @Autowired
-    private PictureProducer pictureProducer;
+    private PictureProducerTwo pictureProducerTwo;
 
     private final List<String> SOURCES = List.of("mobile", "pc");
     private final List<String> TYPES = List.of("jpg", "png", "svg");
@@ -32,7 +33,7 @@ public class ProducerApplication implements CommandLineRunner {
             picture.setSource(SOURCES.get(i % SOURCES.size()));
             picture.setType(TYPES.get(i % TYPES.size()));
 
-            pictureProducer.sendMessage(picture);
+            pictureProducerTwo.sendMessage(picture);
         }
     }
 }
