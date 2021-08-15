@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Service
+//@Service
 public class RetryMarketingConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(RetryMarketingConsumer.class);

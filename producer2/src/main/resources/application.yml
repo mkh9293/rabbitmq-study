@@ -1,8 +1,8 @@
 spring:
   rabbitmq:
-        addresses: localhost:5672
-        username: guest
-        password: guest
+    addresses: localhost:5672
+    username: guest
+    password: guest
     #    addresses: add.com
     #    username: username
     #    password: password
