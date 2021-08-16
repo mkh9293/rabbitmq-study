@@ -4,9 +4,7 @@ import com.example.rabbitmq.entity.DummyMessage;
 import com.example.rabbitmq.entity.InvoiceCancelledMessage;
 import com.example.rabbitmq.entity.InvoiceCreatedMessage;
 import com.example.rabbitmq.entity.InvoicePaidMessage;
-import com.example.rabbitmq.producer.DummyProducer;
-import com.example.rabbitmq.producer.InvoiceProducer;
-import com.example.rabbitmq.producer.MultiplePrefechProducer;
+import com.example.rabbitmq.producer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,24 +23,46 @@ public class Producer2Application implements CommandLineRunner {
     }
 
     @Autowired
-    private InvoiceProducer invoiceProducer;
+    private AnotherDummyProducer producer;
+//    private InvoiceProducer invoiceProducer;
+//    private ReliableProducer reliableProducer;
+//    private SigleActiveProducer sigleActiveProducer;
 //    private MultiplePrefechProducer multiplePrefechProducer;
 //    private DummyProducer dummyProducer;
 
     @Override
     public void run(String... args) throws Exception {
-        for(int i=0; i<60; i++) {
-            String invoiceNumber = "INV-" + (i % 60);
-            InvoiceCreatedMessage message = new InvoiceCreatedMessage(ThreadLocalRandom.current().nextInt(200), LocalDate.now(), "USD", invoiceNumber);
-            invoiceProducer.sendInvoiceCreated(message);
+        DummyMessage message = new DummyMessage("Just a dummy message", 1);
+        producer.sendDummy(message);
 
-            String randomPaymentNumber = "PAY-" + ThreadLocalRandom.current().nextInt(800, 1000);
-            InvoicePaidMessage paymentMessage = new InvoicePaidMessage(invoiceNumber, LocalDate.now(), randomPaymentNumber);
-            invoiceProducer.sendInvoicePaid(paymentMessage);
+//        for(int i=0; i<10; i++) {
+//            String invoiceNumber = "INV-" + i;
+//            InvoiceCancelledMessage message = new InvoiceCancelledMessage(LocalDate.now(), invoiceNumber, "Test " + i);
+//            invoiceProducer.sendInvoiceCancelled(message);
+//        }
 
-            InvoiceCancelledMessage cancelledMessage = new InvoiceCancelledMessage(LocalDate.now(), invoiceNumber, "Just Test");
-            invoiceProducer.sendInvoiceCancelled(cancelledMessage);
-        }
+//            String randomPaymentNumber = "PAY-" + ThreadLocalRandom.current().nextInt(800, 1000);
+//        DummyMessage message1 = new DummyMessage("Invalid test", 10);
+//        DummyMessage message2 = new DummyMessage("Invalid test", 20);
+//
+//        reliableProducer.sendDummyToInvalidExchange(message1);
+//        reliableProducer.sendDummyWithInvalidRoutingKey(message2);
+
+//        sigleActiveProducer.sendDummy();
+//        System.out.println("Done");
+
+//        for(int i=0; i<60; i++) {
+//            String invoiceNumber = "INV-" + (i % 60);
+//            InvoiceCreatedMessage message = new InvoiceCreatedMessage(ThreadLocalRandom.current().nextInt(200), LocalDate.now(), "USD", invoiceNumber);
+//            invoiceProducer.sendInvoiceCreated(message);
+//
+//            String randomPaymentNumber = "PAY-" + ThreadLocalRandom.current().nextInt(800, 1000);
+//            InvoicePaidMessage paymentMessage = new InvoicePaidMessage(invoiceNumber, LocalDate.now(), randomPaymentNumber);
+//            invoiceProducer.sendInvoicePaid(paymentMessage);
+//
+//            InvoiceCancelledMessage cancelledMessage = new InvoiceCancelledMessage(LocalDate.now(), invoiceNumber, "Just Test");
+//            invoiceProducer.sendInvoiceCancelled(cancelledMessage);
+//        }
 
 //        String randomInvoiceNumber = "INV-" + ThreadLocalRandom.current().nextInt(100, 200);
 //        InvoiceCreatedMessage message = new InvoiceCreatedMessage(152.26, LocalDate.now().minusDays(2), "USD", randomInvoiceNumber);

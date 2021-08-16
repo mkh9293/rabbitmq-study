@@ -14,6 +14,7 @@ public class InvoiceProducer {
     private RabbitTemplate rabbitTemplate;
 
     private static final String EXCHANGE = "x.invoice";
+//    private static final String EXCHANGE = "x.invoice.cancel";
 
     public void sendInvoiceCreated(InvoiceCreatedMessage message) {
         rabbitTemplate.convertAndSend(EXCHANGE, message.getInvoiceNumber(), message);
